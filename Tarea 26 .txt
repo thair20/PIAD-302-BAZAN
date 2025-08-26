@@ -1,0 +1,69 @@
+select * from Customers
+
+--Uso de Wildcards
+select * from customers 
+where ContactName like 'An%'
+
+select * from customers 
+where customerID like 'A%'
+
+select * from customers 
+where customerID like '__O__'
+
+select * from customers
+where customerID like '[^a-j]%'
+
+--Ejercicios 
+/*
+1.Mostrar todos los "Customers" que tengan una direccion de "Av"
+2.Mostrar todos los "Customers" que no pertenezcan al pais "Brazil"
+3.Mostrar todos los "Customers" que no tengan una region "NULL" y que el fax no sea "NULL"
+*/
+
+select * from customers 
+where Address LIKE '%Av%'
+
+
+select * from customers
+where Country <> 'Brazil'
+
+
+select * from customers
+where Region is not null and Fax is not null
+
+
+-- Uso del In 
+select * from Employees
+where TitleOfCourtesy IN ('Ms.','Mr','Mrs')
+
+
+--Uso del Group By 
+
+select count(*), City from Customers
+group by City
+order by count(*) desc
+
+select * from products
+/*
+4.Contar todas las "Orders" agrupando por "ShipCoutry
+5.Contar todas las "Orders" agrupando por el "ShipCity"
+6.Sumar todos los "UnitPrice " de los "products" agrupando por "CategoryID" 
+*/
+
+
+select count (*) from customers; 
+select SUM(UnitPrice) from products;
+select AVG(UnitPrice) from products;
+
+
+select ShipCountry, count(*) as TotalOrders from Orders
+group by  ShipCountry
+
+
+select ShipCity, count(*) as TotalOrders from Orders
+group by ShipCity
+
+
+select CategoryID, sum(UnitPrice) as TotalUnitPrice from Products
+group by CategoryID
+
