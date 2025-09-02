@@ -1,0 +1,63 @@
+--Crear un store Procedure para sumar.
+--Ejemplo: Como crear un procedimiento almacenado.
+Create Proc SumaNumeros 
+(
+  @numero1 int,
+  @numero2 int
+)
+as 
+print '' + @numero1 + @numero2 + '';
+
+--Ejemplo: Ejecutar el procedimiento almacenado creado.
+Exec SumarNumeros 100, 200;
+
+--Crear 4 Procedimientos Almacenados: RESTAR, MULTIPLICAR, DIVIDIR, POTENCIAR
+
+CREATE PROC RestarNumeros
+    @num1 INT,
+    @num2 INT
+AS
+BEGIN
+    SELECT @num1 - @num2 AS ResultadoResta;
+END;
+
+EXEC RestarNumeros 9999999, 130000;
+
+-------MULTIPLICACION--------
+CREATE PROCEDURE MultiplicaNumeros
+    @num1 INT,
+    @num2 INT
+AS
+BEGIN
+    SELECT @num1 * @num2 AS ResultadoMultiplicacion;
+END;
+
+EXEC MultiplicaNumeros 111, 9999999;
+
+
+--------DIVISION--------
+CREATE PROCEDURE DividirNumeros
+    @num1 FLOAT,
+    @num2 FLOAT
+AS
+BEGIN
+    IF @num2 = 0
+        PRINT 'Error: División por cero no permitida';
+    ELSE
+        SELECT @num1 / @num2 AS ResultadoDivision;
+END;
+
+EXEC DividirNumeros 100, 4;
+
+-------POTENCIACION--------
+CREATE PROCEDURE PotenciarNumeros
+    @base FLOAT,
+    @exponente FLOAT
+AS
+BEGIN
+    SELECT POWER(@base, @exponente) AS ResultadoPotencia;
+END;
+
+EXEC PotenciarNumeros 2, 8;
+
+--WAZaaaaaaaaaaaaaaaaAAAAAAAAAAAAaaaaa
