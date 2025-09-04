@@ -1,0 +1,48 @@
+CREATE TABLE Productosss (
+    IdProducto INT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Precio DECIMAL(10,2)
+);
+
+CREATE TABLE UserLogss (
+    IdLog INT IDENTITY(1,1) PRIMARY KEY,
+    [action] NVARCHAR(10),
+    [user] NVARCHAR(100),
+    [date] DATETIME
+);
+
+INSERT INTO Productosss (IdProducto, Nombre, Precio)
+VALUES
+(1, 'Producto A', 10.00),
+(2, 'Producto B', 20.00);
+
+
+CREATE TRIGGER trigger_update_Productosss
+ON Productosss
+AFTER UPDATE, DELETE 
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @accion NVARCHAR(10);
+
+    IF EXISTS (SELECT * FROM inserted)
+        SET @accion = 'Update';
+    ELSE
+        SET @accion = 'Delete';
+
+    INSERT INTO UserLogs ([action], [user], [date])
+    VALUES (@accion, SUSER_NAME(), SYSDATETIME());
+END;
+GO
+
+SELECT * FROM UserLogs;
+SELECT * FROM Productosss;
+
+
+DELETE FROM Productosss WHERE IdProducto = 1;
+
+UPDATE Productosss
+SET Nombre = ''
+WHERE IdProducto = 2;
+
